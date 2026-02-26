@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MECO Airdrop - 500 MECO مجاناً</title>
+  <style>
+    /* ... الأنماط كما هي من الكود السابق ... */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #0A0A0F 0%, #1A1A2E 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .airdrop-card {
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 32px;
+      padding: 48px 32px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(108, 99, 255, 0.2);
+      animation: fadeIn 0.6s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px -5px rgba(108, 99, 255, 0.3);
+    }
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    h1 {
+      color: #FFFFFF;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(108, 99, 255, 0.2);
+      color: #6C63FF;
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      border: 1px solid rgba(108, 99, 255, 0.3);
+    }
+    .description {
+      color: #A0A0B0;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+    .steps {
+      text-align: right;
+      margin: 30px 0;
+      padding: 0 10px;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      background: rgba(42, 42, 62, 0.5);
+      padding: 15px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: #6C63FF;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFF;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .step-content {
+      flex: 1;
+      text-align: right;
+    }
+    .step-title {
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .step-link {
+      color: #6C63FF;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    .step-link:hover {
+      text-decoration: underline;
+    }
+    .info-note {
+      background: rgba(108, 99, 255, 0.1);
+      border-radius: 12px;
+      padding: 12px;
+      margin: 30px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: right;
+    }
+    .info-note svg {
+      flex-shrink: 0;
+    }
+    .info-text {
+      color: #A0A0B0;
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: right;
+    }
+    .submit-btn {
+      background: linear-gradient(135deg, #6C63FF 0%, #4A42E8 100%);
+      color: white;
+      border: none;
+      padding: 18px 32px;
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s;
+      margin: 20px 0;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px -5px rgba(108, 99, 255, 0.5);
+    }
+    .footer-links {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+    .footer-link {
+      color: #6B7280;
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.3s;
+    }
+    .footer-link:hover {
+      color: #6C63FF;
+    }
+    @media (max-width: 400px) {
+      .airdrop-card { padding: 32px 20px; }
+      h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="airdrop-card">
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/MonyCoin/meco_wallet/refs/heads/main/assets/logo.png" alt="MECO Logo">
+    </div>
+
+    <h1>🎁 MECO Airdrop</h1>
+    <div class="badge">احصل على 500 MECO مجاناً</div>
+
+    <p class="description">
+      أول محفظة عربية لا مركزية على Solana توزع 500 MECO لكل مشارك!
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">📱 تحميل التطبيق</div>
+          <a href="https://monycoin.github.io/meco_wallet-app/" target="_blank" class="step-link">monycoin.github.io/meco_wallet-app/</a>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">🐦 متابعة على تويتر</div>
+          <a href="https://x.com/MoniCoinMECO" target="_blank" class="step-link">@MoniCoinMECO</a>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">💬 الانضمام لتليجرام</div>
+          <a href="https://t.me/monycoin1" target="_blank" class="step-link">t.me/monycoin1</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-note">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="16" x2="12" y2="12"/>
+        <circle cx="12" cy="8" r="1" fill="#6C63FF"/>
+      </svg>
+      <span class="info-text">
+        بعد إكمال الخطوات أعلاه، اضغط على الزر أدناه لتسجيل عنوان محفظتك في النموذج الرسمي.
+      </span>
+    </div>
+
+    <!-- زر مباشر لفتح نموذج Google Forms -->
+    <a href="https://forms.gle/Wvm9SSdQRYJMEqn36" target="_blank" class="submit-btn">
+      ✅ سجل مشاركتك الآن
+    </a>
+
+    <p style="color:#6B7280; font-size:12px; margin:10px 0;">
+      *بعد التسجيل، سنقوم بإضافة 500 MECO إلى محفظتك بعد انتهاء الحملة.
+    </p>
+
+    <div class="footer-links">
+      <a href="https://github.com/MonyCoin/meco-token" target="_blank" class="footer-link">GitHub</a>
+      <a href="https://t.me/monycoin1" target="_blank" class="footer-link">Telegram</a>
+      <a href="https://x.com/MoniCoinMECO" target="_blank" class="footer-link">Twitter</a>
+    </div>
+  </div>
+</body>
+</html>
