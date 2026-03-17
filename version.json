@@ -1,6 +1,6 @@
 {
-  "latestVersion": "1.6.0",
-  "buildNumber": 8,
+  "latestVersion": "1.5.0",
+  "buildNumber": 7,
   "releaseNotes": "تم إضافة دعم WalletConnect وتحسين سجل المعاملات.",
   "downloadUrl": "https://monycoin.github.io/meco_wallet-app/"
 }
