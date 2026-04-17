@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MECO Wallet - التحميل</title>
+  <title>MECO Wallet - أول محفظة عربية لامركزية على Solana</title>
   <style>
     * {
       margin: 0;
@@ -26,7 +26,7 @@
       backdrop-filter: blur(10px);
       border-radius: 32px;
       padding: 48px 32px;
-      max-width: 600px;
+      max-width: 700px;
       width: 100%;
       text-align: center;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -35,14 +35,8 @@
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .logo {
@@ -250,27 +244,15 @@
     }
 
     @media (max-width: 400px) {
-      .features {
-        grid-template-columns: 1fr;
-      }
-      
-      .whats-new-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .download-card {
-        padding: 32px 20px;
-      }
-      
-      h1 {
-        font-size: 28px;
-      }
+      .features { grid-template-columns: 1fr; }
+      .whats-new-grid { grid-template-columns: 1fr; }
+      .download-card { padding: 32px 20px; }
+      h1 { font-size: 28px; }
     }
   </style>
 </head>
 <body>
   <div class="download-card">
-
     <div class="logo">
       <img src="https://raw.githubusercontent.com/MonyCoin/meco_wallet/refs/heads/main/assets/icon.png" alt="MECO Wallet Logo">
     </div>
@@ -283,69 +265,61 @@
       آمنة، سريعة، وسهلة الاستخدام.
     </p>
 
-    <!-- تعريف إمكانية التحديث داخل التطبيق -->
     <p class="description" style="font-size:14px; color:#6C63FF;">
-      يمكنك تحديث التطبيق مباشرة من داخل الإعدادات دون الحاجة لإعادة التحميل من الموقع.
+      ✅ يدعم التحديث الفوري (OTA) — يتم التحديث تلقائيًا من داخل التطبيق.
     </p>
 
     <div class="features">
-      <div class="feature-item">
-        <span class="feature-icon">🔐</span>
-        <span class="feature-text">آمن ومشفر</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">⚡</span>
-        <span class="feature-text">معاملات سريعة</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">💰</span>
-        <span class="feature-text">رسوم منخفضة</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">🌐</span>
-        <span class="feature-text">دعم متعدد اللغات</span>
-      </div>
+      <div class="feature-item"><span class="feature-icon">🔐</span><span class="feature-text">آمن ومشفر</span></div>
+      <div class="feature-item"><span class="feature-icon">⚡</span><span class="feature-text">معاملات سريعة</span></div>
+      <div class="feature-item"><span class="feature-icon">💰</span><span class="feature-text">رسوم منخفضة</span></div>
+      <div class="feature-item"><span class="feature-icon">🌐</span><span class="feature-text">دعم متعدد اللغات</span></div>
     </div>
 
     <div class="whats-new-section">
-      <span class="version-badge">🎉 جديد v1.11.0</span>
-      <h2 class="whats-new-title">ميزات احترافية تنتظرك</h2>
+      <span class="version-badge">🎉 الميزات الكاملة في v1.11.0</span>
+      <h2 class="whats-new-title">محفظة احترافية متكاملة</h2>
       
       <div class="whats-new-grid">
         <div class="whats-new-card">
-          <span class="whats-new-card-icon">📈</span>
-          <h3>رسم بياني بالشموع</h3>
-          <p>تحليل فني متقدم مع فترات زمنية متعددة (1H, 24H, 1W, 1M)</p>
-        </div>
-        
-        <div class="whats-new-card">
           <span class="whats-new-card-icon">💱</span>
           <h3>تبادل فوري (Swap)</h3>
-          <p>تبادل SOL, USDC, USDT بأسعار حقيقية عبر Jupiter</p>
+          <p>تبادل بين 21 عملة عبر Jupiter API مع أفضل الأسعار</p>
         </div>
-        
         <div class="whats-new-card">
-          <span class="whats-new-card-icon">👆</span>
-          <h3>إجراءات سريعة</h3>
-          <p>تمرير لليمين للإرسال، لليسار للتبادل من المحفظة</p>
+          <span class="whats-new-card-icon">🌍</span>
+          <h3>WalletConnect v2</h3>
+          <p>ربط آمن مع أي تطبيق Web3 على Solana</p>
         </div>
-        
+        <div class="whats-new-card">
+          <span class="whats-new-card-icon">🥩</span>
+          <h3>تخزين السيولة (Staking)</h3>
+          <p>إيداع MECO-USDT في مجمع Raydium لكسب العوائد</p>
+        </div>
+        <div class="whats-new-card">
+          <span class="whats-new-card-icon">🧭</span>
+          <h3>بوابة التطبيقات (App Portal)</h3>
+          <p>استكشف أشهر تطبيقات Solana (Jupiter, Orca, Magic Eden...)</p>
+        </div>
+        <div class="whats-new-card">
+          <span class="whats-new-card-icon">🪙</span>
+          <h3>دعم 21 عملة</h3>
+          <p>بما فيها SOL, MECO, USDT, JUP, RAY, BONK والمزيد</p>
+        </div>
+        <div class="whats-new-card">
+          <span class="whats-new-card-icon">📊</span>
+          <h3>سجل معاملات ذكي</h3>
+          <p>تحليلات متقدمة للمعاملات مع فلاتر وإحصائيات</p>
+        </div>
+        <div class="whats-new-card">
+          <span class="whats-new-card-icon">🔄</span>
+          <h3>تحديثات فورية (OTA)</h3>
+          <p>احصل على أحدث الميزات فورًا دون تنزيل APK جديد</p>
+        </div>
         <div class="whats-new-card">
           <span class="whats-new-card-icon">🎨</span>
-          <h3>تصميم متجدد</h3>
-          <p>لون افتراضي أزرق يتناغم مع هوية التطبيق</p>
-        </div>
-        
-        <div class="whats-new-card">
-          <span class="whats-new-card-icon">🌐</span>
-          <h3>ترجمة كاملة</h3>
-          <p>دعم متكامل للعربية والإنجليزية في كل الشاشات</p>
-        </div>
-        
-        <div class="whats-new-card">
-          <span class="whats-new-card-icon">⚡</span>
-          <h3>أداء محسن</h3>
-          <p>تحسين سرعة التحميل واستجابة التطبيق</p>
+          <h3>تصميم عصري</h3>
+          <p>وضع ليلي/نهري، دعم RTL، وألوان قابلة للتخصيص</p>
         </div>
       </div>
     </div>
@@ -353,23 +327,23 @@
     <a href="https://expo.dev/artifacts/eas/bqXeeezg3emn5Sh4y86tAZ.apk"
        class="download-btn" 
        download="MECO-Wallet.apk">
-      تحميل التطبيق
+      ⬇️ تحميل التطبيق (APK)
     </a>
 
     <div class="security-badge">
-      <span>آمن ومشفر 100%</span>
+      <span>✅ آمن ومشفر 100% — المفاتيح الخاصة لا تغادر جهازك أبدًا</span>
     </div>
 
     <div class="version-info">
-      آخر تحديث : 14 ابريل 2026
+      آخر تحديث: 14 أبريل 2026
     </div>
 
     <div class="footer-links">
       <a href="https://github.com/MonyCoin/meco-token" target="_blank">GitHub</a>
+      <a href="https://github.com/MonyCoin/meco_wallet" target="_blank">المستودع</a>
       <a href="https://t.me/monycoin1" target="_blank">Telegram</a>
-      <a href="https://x.com/MoniCoinMECO" target="_blank">Twitter</a>
+      <a href="https://x.com/MoniCoinMECO" target="_blank">X (Twitter)</a>
     </div>
-
   </div>
 </body>
 </html>
