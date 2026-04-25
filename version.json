@@ -1,6 +1,6 @@
 {
-  "latestVersion": "1.11.0",
+  "latestVersion": "1.11.1",
   "buildNumber": 11,
-  "releaseNotes": "تم تحديث شاشة السوق وتفعيل منطق المبادله ",
+  "releaseNotes": "التحديث عبر OTA",
   "downloadUrl": "https://monycoin.github.io/meco_wallet-app/"
 }
