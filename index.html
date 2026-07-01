@@ -30,7 +30,7 @@
       width: 100%;
       text-align: center;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(108, 99, 255, 0.2);
+      border: 1px solid rgba(231, 76, 60, 0.2);
       animation: fadeIn 0.6s ease-out;
     }
 
@@ -45,7 +45,7 @@
       margin: 0 auto 24px;
       border-radius: 30px;
       overflow: hidden;
-      box-shadow: 0 10px 30px -5px rgba(108, 99, 255, 0.3);
+      box-shadow: 0 10px 30px -5px rgba(231, 76, 60, 0.3);
     }
 
     .logo img {
@@ -63,14 +63,14 @@
 
     .badge {
       display: inline-block;
-      background: rgba(108, 99, 255, 0.2);
-      color: #6C63FF;
+      background: rgba(231, 76, 60, 0.2);
+      color: #E74C3C;
       padding: 6px 16px;
       border-radius: 100px;
       font-size: 14px;
       font-weight: 600;
       margin-bottom: 24px;
-      border: 1px solid rgba(108, 99, 255, 0.3);
+      border: 1px solid rgba(231, 76, 60, 0.3);
     }
 
     .description {
@@ -114,56 +114,57 @@
       font-weight: 600;
     }
 
-    .whats-new-section {
-      background: linear-gradient(135deg, rgba(108, 99, 255, 0.1) 0%, rgba(74, 66, 232, 0.1) 100%);
+    /* قسم الميزات الجديد (بطاقات احترافية) */
+    .power-features-section {
+      background: linear-gradient(135deg, rgba(231, 76, 60, 0.1) 0%, rgba(192, 57, 43, 0.1) 100%);
       border-radius: 24px;
       padding: 32px 24px;
       margin: 32px 0;
-      border: 1px solid rgba(108, 99, 255, 0.3);
+      border: 1px solid rgba(231, 76, 60, 0.3);
     }
 
-    .whats-new-title {
-      color: #6C63FF;
+    .power-features-title {
+      color: #E74C3C;
       font-size: 24px;
       font-weight: 700;
       margin-bottom: 24px;
       text-align: center;
     }
 
-    .whats-new-grid {
+    .power-features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 16px;
     }
 
-    .whats-new-card {
+    .power-feature-card {
       background: rgba(26, 26, 46, 0.8);
       border-radius: 16px;
       padding: 20px 12px;
       text-align: center;
-      border: 1px solid rgba(108, 99, 255, 0.2);
+      border: 1px solid rgba(231, 76, 60, 0.2);
       transition: transform 0.3s, border-color 0.3s;
     }
 
-    .whats-new-card:hover {
+    .power-feature-card:hover {
       transform: translateY(-4px);
-      border-color: #6C63FF;
+      border-color: #E74C3C;
     }
 
-    .whats-new-card-icon {
+    .power-feature-card-icon {
       font-size: 32px;
       margin-bottom: 12px;
       display: block;
     }
 
-    .whats-new-card h3 {
+    .power-feature-card h3 {
       color: #FFFFFF;
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 8px;
     }
 
-    .whats-new-card p {
+    .power-feature-card p {
       color: #A0A0B0;
       font-size: 12px;
       line-height: 1.5;
@@ -171,7 +172,7 @@
 
     .version-badge {
       display: inline-block;
-      background: #6C63FF;
+      background: #E74C3C;
       color: #FFFFFF;
       padding: 4px 12px;
       border-radius: 20px;
@@ -181,7 +182,7 @@
     }
 
     .download-btn {
-      background: linear-gradient(135deg, #6C63FF 0%, #4A42E8 100%);
+      background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%);
       color: white;
       border: none;
       padding: 20px 32px;
@@ -195,14 +196,14 @@
       justify-content: center;
       gap: 12px;
       transition: all 0.3s;
-      box-shadow: 0 10px 30px -5px rgba(108, 99, 255, 0.5);
+      box-shadow: 0 10px 30px -5px rgba(231, 76, 60, 0.5);
       text-decoration: none;
     }
 
     .download-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 20px 40px -5px rgba(108, 99, 255, 0.7);
-      background: linear-gradient(135deg, #7B74FF 0%, #5B53F0 100%);
+      box-shadow: 0 20px 40px -5px rgba(231, 76, 60, 0.7);
+      background: linear-gradient(135deg, #F05A4A 0%, #D44637 100%);
     }
 
     .download-btn:active {
@@ -240,12 +241,12 @@
     }
 
     .footer-links a:hover {
-      color: #6C63FF;
+      color: #E74C3C;
     }
 
     @media (max-width: 400px) {
       .features { grid-template-columns: 1fr; }
-      .whats-new-grid { grid-template-columns: 1fr; }
+      .power-features-grid { grid-template-columns: 1fr; }
       .download-card { padding: 32px 20px; }
       h1 { font-size: 28px; }
     }
@@ -265,7 +266,7 @@
       آمنة، سريعة، وسهلة الاستخدام.
     </p>
 
-    <p class="description" style="font-size:14px; color:#6C63FF;">
+    <p class="description" style="font-size:14px; color:#E74C3C;">
       ✅ يدعم التحديث الفوري (OTA) — يتم التحديث تلقائيًا من داخل التطبيق.
     </p>
 
@@ -276,50 +277,41 @@
       <div class="feature-item"><span class="feature-icon">🌐</span><span class="feature-text">دعم متعدد اللغات</span></div>
     </div>
 
-    <div class="whats-new-section">
-      <span class="version-badge">🎉 الميزات الكاملة في v1.17.0</span>
-      <h2 class="whats-new-title">محفظة احترافية متكاملة</h2>
+    <!-- قسم البطاقات الجديد الذي يبرز القدرات الفائقة -->
+    <div class="power-features-section">
+      <span class="version-badge">🚀 قدرات MECO Wallet الفائقة</span>
+      <h2 class="power-features-title">محفظتك الذكية لإدارة مشاريعك الرقمية</h2>
       
-      <div class="whats-new-grid">
-        <div class="whats-new-card">
-          <span class="whats-new-card-icon">💱</span>
-          <h3>تبادل فوري (Swap)</h3>
-          <p>تبادل بين 21 عملة عبر Jupiter API مع أفضل الأسعار</p>
+      <div class="power-features-grid">
+        <div class="power-feature-card">
+          <span class="power-feature-card-icon">🧑‍💼</span>
+          <h3>10 حسابات منفصلة</h3>
+          <p>أنشئ حتى 10 محافظ رقمية لإدارة مشاريعك وصناعة رموزك المميزة على Solana</p>
         </div>
-        <div class="whats-new-card">
-          <span class="whats-new-card-icon">🌍</span>
-          <h3>WalletConnect v2</h3>
-          <p>ربط آمن مع أي تطبيق Web3 على Solana</p>
+        <div class="power-feature-card">
+          <span class="power-feature-card-icon">💸</span>
+          <h3>إرسال، استلام، مبادلة</h3>
+          <p>تعامل مع جميع العملات على شبكة Solana بضغطة زر وبرسوم منخفضة جدًا</p>
         </div>
-        <div class="whats-new-card">
-          <span class="whats-new-card-icon">🥩</span>
-          <h3>تخزين السيولة (Staking)</h3>
-          <p>إيداع MECO-USDT في مجمع Raydium لكسب العوائد</p>
+        <div class="power-feature-card">
+          <span class="power-feature-card-icon">📈</span>
+          <h3>شاشة تداول احترافية</h3>
+          <p>تداول جميع عملات Solana بواجهة متطورة تمنحك التحكم الكامل</p>
         </div>
-        <div class="whats-new-card">
-          <span class="whats-new-card-icon">🧭</span>
-          <h3>بوابة التطبيقات (App Portal)</h3>
-          <p>استكشف أشهر تطبيقات Solana (Jupiter, Orca, Magic Eden...)</p>
+        <div class="power-feature-card">
+          <span class="power-feature-card-icon">📊</span>
+          <h3>سوق متقدم وأسعار لحظية</h3>
+          <p>تابع الأسعار الحية والرسوم البيانية التفصيلية لجميع العملات</p>
         </div>
-        <div class="whats-new-card">
-          <span class="whats-new-card-icon">🪙</span>
-          <h3>دعم 16 عملة</h3>
-          <p>بما فيها SOL, MECO, USDT, JUP, RAY, BONK والمزيد</p>
+        <div class="power-feature-card">
+          <span class="power-feature-card-icon">🔗</span>
+          <h3>WalletConnect بماسح QR</h3>
+          <p>اربط محفظتك فورًا بأي تطبيق Web3 عبر مسح الكود من داخل التطبيق</p>
         </div>
-        <div class="whats-new-card">
-          <span class="whats-new-card-icon">📊</span>
-          <h3>سجل معاملات ذكي</h3>
-          <p>تحليلات متقدمة للمعاملات مع فلاتر وإحصائيات</p>
-        </div>
-        <div class="whats-new-card">
-          <span class="whats-new-card-icon">🔄</span>
-          <h3>تحديثات فورية (OTA)</h3>
-          <p>احصل على أحدث الميزات فورًا دون تنزيل APK جديد</p>
-        </div>
-        <div class="whats-new-card">
-          <span class="whats-new-card-icon">🎨</span>
-          <h3>تصميم عصري</h3>
-          <p>وضع ليلي/نهري، دعم RTL، وألوان قابلة للتخصيص</p>
+        <div class="power-feature-card">
+          <span class="power-feature-card-icon">🏦</span>
+          <h3>مجمعات سيولة (Orca/Raydium)</h3>
+          <p>أنشئ مجمعات سيولة واستفد من أرباح التداول على أشهر المنصات اللامركزية</p>
         </div>
       </div>
     </div>
@@ -335,7 +327,7 @@
     </div>
 
     <div class="version-info">
-      آخر تحديث: 25 يونيو  2026
+      آخر تحديث: 25 يونيو 2026
     </div>
 
     <div class="footer-links">
