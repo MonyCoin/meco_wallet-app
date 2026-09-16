@@ -180,6 +180,45 @@
       margin-bottom: 12px;
     }
 
+    /* ✅ عدّاد التنزيلات — جديد */
+    .downloads-counter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 auto 16px;
+      padding: 12px 24px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 100px;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .downloads-counter .counter-icon {
+      font-size: 18px;
+    }
+
+    .downloads-counter .counter-number {
+      color: #10B981;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      direction: ltr;
+      display: inline-block;
+    }
+
+    .downloads-counter .counter-label {
+      color: #A0A0B0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .downloads-counter .counter-loading {
+      color: #6B7280;
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+
     .download-btn {
       background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%);
       color: white;
@@ -248,6 +287,9 @@
       .power-features-grid { grid-template-columns: 1fr; }
       .download-card { padding: 32px 20px; }
       h1 { font-size: 28px; }
+      .downloads-counter { padding: 10px 18px; }
+      .downloads-counter .counter-number { font-size: 18px; }
+      .downloads-counter .counter-label { font-size: 13px; }
     }
   </style>
 </head>
@@ -314,9 +356,18 @@
       </div>
     </div>
 
-    <a href="https://expo.dev/artifacts/eas/IYFutJZSrXX8R2QHeyI_HfDY4icLGtNYJDaEKyCRz34.apk"
+    <!-- ✅ عدّاد التنزيلات — جديد -->
+    <div class="downloads-counter" id="downloadsCounter" style="display:none;">
+      <span class="counter-icon">📥</span>
+      <span class="counter-number" id="downloadsNumber">—</span>
+      <span class="counter-label">تنزيل</span>
+    </div>
+
+    <!-- ✅ زر التحميل — يقرأ الرابط تلقائياً من GitHub Releases -->
+    <a href="https://github.com/MonyCoin/meco_wallet/releases/latest/download/MECO-wallet.apk"
        class="download-btn" 
-       download="MECO-Wallet.apk">
+       download="MECO-Wallet.apk"
+       id="downloadBtn">
       ⬇️ تحميل التطبيق (APK)
     </a>
 
@@ -335,5 +386,100 @@
       <a href="https://x.com/MoniCoinMECO" target="_blank">X (Twitter)</a>
     </div>
   </div>
+
+  <!-- ✅ JavaScript لقراءة عدد التنزيلات من GitHub API -->
+  <script>
+    (function() {
+      const GITHUB_API = 'https://api.github.com/repos/MonyCoin/meco_wallet/releases';
+      const CACHE_KEY  = 'meco_downloads_cache';
+      const CACHE_TTL  = 10 * 60 * 1000; // 10 دقائق
+
+      const counterEl = document.getElementById('downloadsCounter');
+      const numberEl  = document.getElementById('downloadsNumber');
+
+      // 1. التحقق من وجود نسخة مخزّنة مؤقتاً
+      function getCachedCount() {
+        try {
+          const raw = localStorage.getItem(CACHE_KEY);
+          if (!raw) return null;
+          const { count, timestamp } = JSON.parse(raw);
+          if (Date.now() - timestamp < CACHE_TTL) return count;
+        } catch (_) {}
+        return null;
+      }
+
+      // 2. حفظ العدد في الذاكرة المؤقتة
+      function setCachedCount(count) {
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({
+            count,
+            timestamp: Date.now()
+          }));
+        } catch (_) {}
+      }
+
+      // 3. عرض العدد بتنسيق أنيق
+      function displayCount(count) {
+        if (typeof count !== 'number' || count < 0) return;
+        numberEl.textContent = count.toLocaleString('en-US');
+        counterEl.style.display = 'inline-flex';
+      }
+
+      // 4. جلب عدد التنزيلات من GitHub API
+      async function fetchDownloadCount() {
+        // عرض مؤشر التحميل أولاً
+        counterEl.style.display = 'inline-flex';
+        numberEl.textContent = '...';
+        numberEl.classList.add('counter-loading');
+
+        // التحقق من الذاكرة المؤقتة
+        const cached = getCachedCount();
+        if (cached !== null) {
+          numberEl.classList.remove('counter-loading');
+          displayCount(cached);
+          return;
+        }
+
+        try {
+          const response = await fetch(GITHUB_API, {
+            headers: { 'Accept': 'application/vnd.github+json' }
+          });
+          if (!response.ok) throw new Error('GitHub API error: ' + response.status);
+
+          const releases = await response.json();
+          if (!Array.isArray(releases)) throw new Error('Invalid releases data');
+
+          // جمع عدد التنزيلات من جميع الإصدارات
+          let totalDownloads = 0;
+          releases.forEach(release => {
+            if (Array.isArray(release.assets)) {
+              release.assets.forEach(asset => {
+                if (asset.name && asset.name.endsWith('.apk')) {
+                  totalDownloads += asset.download_count || 0;
+                }
+              });
+            }
+          });
+
+          setCachedCount(totalDownloads);
+          numberEl.classList.remove('counter-loading');
+          displayCount(totalDownloads);
+
+        } catch (error) {
+          console.warn('Failed to fetch download count:', error);
+          // إخفاء العدّاد بأمان عند الفشل
+          numberEl.classList.remove('counter-loading');
+          counterEl.style.display = 'none';
+        }
+      }
+
+      // 5. تشغيل الجلب عند تحميل الصفحة
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fetchDownloadCount);
+      } else {
+        fetchDownloadCount();
+      }
+    })();
+  </script>
 </body>
 </html>
