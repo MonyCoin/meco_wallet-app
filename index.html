@@ -180,7 +180,7 @@
       margin-bottom: 12px;
     }
 
-    /* ✅ عدّاد التنزيلات — جديد */
+    /* ✅ عدّاد التنزيلات */
     .downloads-counter {
       display: inline-flex;
       align-items: center;
@@ -300,7 +300,7 @@
     </div>
 
     <h1>MECO Wallet</h1>
-    <div class="badge">الإصدار 1.18.0</div>
+    <div class="badge" id="versionBadge">الإصدار ...</div>
 
     <p class="description">
       أول محفظة عربية لامركزية على شبكة Solana. 
@@ -356,14 +356,14 @@
       </div>
     </div>
 
-    <!-- ✅ عدّاد التنزيلات — جديد -->
+    <!-- ✅ عدّاد التنزيلات -->
     <div class="downloads-counter" id="downloadsCounter" style="display:none;">
       <span class="counter-icon">📥</span>
       <span class="counter-number" id="downloadsNumber">—</span>
       <span class="counter-label">تنزيل</span>
     </div>
 
-    <!-- ✅ زر التحميل — يقرأ الرابط تلقائياً من GitHub Releases -->
+    <!-- ✅ زر التحميل — يقرأ تلقائياً من GitHub Releases -->
     <a href="https://github.com/MonyCoin/meco_wallet/releases/latest/download/MECO-wallet.apk"
        class="download-btn" 
        download="MECO-Wallet.apk"
@@ -375,8 +375,8 @@
       <span>✅ آمن ومشفر 100% — المفاتيح الخاصة لا تغادر جهازك أبدًا</span>
     </div>
 
-    <div class="version-info">
-      آخر تحديث: 9 سبتمبر 2026
+    <div class="version-info" id="lastUpdateInfo">
+      آخر تحديث: ...
     </div>
 
     <div class="footer-links">
@@ -387,97 +387,133 @@
     </div>
   </div>
 
-  <!-- ✅ JavaScript لقراءة عدد التنزيلات من GitHub API -->
   <script>
     (function() {
-      const GITHUB_API = 'https://api.github.com/repos/MonyCoin/meco_wallet/releases';
-      const CACHE_KEY  = 'meco_downloads_cache';
+      const LATEST_API = 'https://api.github.com/repos/MonyCoin/meco_wallet/releases/latest';
+      const ALL_API    = 'https://api.github.com/repos/MonyCoin/meco_wallet/releases';
+      const CACHE_KEY  = 'meco_release_cache';
       const CACHE_TTL  = 10 * 60 * 1000; // 10 دقائق
 
-      const counterEl = document.getElementById('downloadsCounter');
-      const numberEl  = document.getElementById('downloadsNumber');
+      const counterEl      = document.getElementById('downloadsCounter');
+      const numberEl       = document.getElementById('downloadsNumber');
+      const versionBadgeEl = document.getElementById('versionBadge');
+      const lastUpdateEl   = document.getElementById('lastUpdateInfo');
 
-      // 1. التحقق من وجود نسخة مخزّنة مؤقتاً
-      function getCachedCount() {
+      // ─── قراءة من الذاكرة المؤقتة ───
+      function getCachedData() {
         try {
           const raw = localStorage.getItem(CACHE_KEY);
           if (!raw) return null;
-          const { count, timestamp } = JSON.parse(raw);
-          if (Date.now() - timestamp < CACHE_TTL) return count;
+          const data = JSON.parse(raw);
+          if (Date.now() - data.timestamp < CACHE_TTL) return data;
         } catch (_) {}
         return null;
       }
 
-      // 2. حفظ العدد في الذاكرة المؤقتة
-      function setCachedCount(count) {
+      function setCachedData(payload) {
         try {
           localStorage.setItem(CACHE_KEY, JSON.stringify({
-            count,
+            ...payload,
             timestamp: Date.now()
           }));
         } catch (_) {}
       }
 
-      // 3. عرض العدد بتنسيق أنيق
-      function displayCount(count) {
-        if (typeof count !== 'number' || count < 0) return;
-        numberEl.textContent = count.toLocaleString('en-US');
-        counterEl.style.display = 'inline-flex';
+      // ─── تنسيق التاريخ بالعربية ───
+      function formatArabicDate(isoString) {
+        try {
+          const date = new Date(isoString);
+          const months = [
+            'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+            'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+          ];
+          return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+        } catch (_) {
+          return '';
+        }
       }
 
-      // 4. جلب عدد التنزيلات من GitHub API
-      async function fetchDownloadCount() {
-        // عرض مؤشر التحميل أولاً
+      // ─── عرض البيانات في الصفحة ───
+      function displayData(data) {
+        // 1. عدد التنزيلات
+        if (typeof data.totalDownloads === 'number' && data.totalDownloads >= 0) {
+          numberEl.textContent = data.totalDownloads.toLocaleString('en-US');
+          numberEl.classList.remove('counter-loading');
+          counterEl.style.display = 'inline-flex';
+        } else {
+          counterEl.style.display = 'none';
+        }
+
+        // 2. رقم الإصدار (مع إزالة حرف v في البداية)
+        if (data.version) {
+          versionBadgeEl.textContent = 'الإصدار ' + data.version.replace(/^v/, '');
+        }
+
+        // 3. تاريخ آخر تحديث
+        if (data.publishedAt) {
+          lastUpdateEl.textContent = 'آخر تحديث: ' + formatArabicDate(data.publishedAt);
+        }
+      }
+
+      // ─── جلب البيانات من GitHub API ───
+      async function fetchReleaseData() {
         counterEl.style.display = 'inline-flex';
         numberEl.textContent = '...';
         numberEl.classList.add('counter-loading');
 
-        // التحقق من الذاكرة المؤقتة
-        const cached = getCachedCount();
-        if (cached !== null) {
-          numberEl.classList.remove('counter-loading');
-          displayCount(cached);
+        const cached = getCachedData();
+        if (cached) {
+          displayData(cached);
           return;
         }
 
         try {
-          const response = await fetch(GITHUB_API, {
-            headers: { 'Accept': 'application/vnd.github+json' }
-          });
-          if (!response.ok) throw new Error('GitHub API error: ' + response.status);
+          const [latestRes, allRes] = await Promise.all([
+            fetch(LATEST_API, { headers: { 'Accept': 'application/vnd.github+json' } }),
+            fetch(ALL_API,    { headers: { 'Accept': 'application/vnd.github+json' } })
+          ]);
 
-          const releases = await response.json();
-          if (!Array.isArray(releases)) throw new Error('Invalid releases data');
+          if (!latestRes.ok || !allRes.ok) {
+            throw new Error('GitHub API error');
+          }
 
-          // جمع عدد التنزيلات من جميع الإصدارات
+          const latest = await latestRes.json();
+          const all    = await allRes.json();
+
           let totalDownloads = 0;
-          releases.forEach(release => {
-            if (Array.isArray(release.assets)) {
-              release.assets.forEach(asset => {
-                if (asset.name && asset.name.endsWith('.apk')) {
-                  totalDownloads += asset.download_count || 0;
-                }
-              });
-            }
-          });
+          if (Array.isArray(all)) {
+            all.forEach(release => {
+              if (Array.isArray(release.assets)) {
+                release.assets.forEach(asset => {
+                  if (asset.name && asset.name.toLowerCase().endsWith('.apk')) {
+                    totalDownloads += asset.download_count || 0;
+                  }
+                });
+              }
+            });
+          }
 
-          setCachedCount(totalDownloads);
-          numberEl.classList.remove('counter-loading');
-          displayCount(totalDownloads);
+          const payload = {
+            version:        latest.tag_name || null,
+            publishedAt:    latest.published_at || null,
+            totalDownloads: totalDownloads,
+          };
+
+          setCachedData(payload);
+          displayData(payload);
 
         } catch (error) {
-          console.warn('Failed to fetch download count:', error);
-          // إخفاء العدّاد بأمان عند الفشل
+          console.warn('Failed to fetch release data:', error);
           numberEl.classList.remove('counter-loading');
           counterEl.style.display = 'none';
         }
       }
 
-      // 5. تشغيل الجلب عند تحميل الصفحة
+      // ─── تشغيل عند تحميل الصفحة ───
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fetchDownloadCount);
+        document.addEventListener('DOMContentLoaded', fetchReleaseData);
       } else {
-        fetchDownloadCount();
+        fetchReleaseData();
       }
     })();
   </script>
