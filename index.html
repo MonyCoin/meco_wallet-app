@@ -4,33 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MECO Wallet - أول محفظة عربية لامركزية على Solana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
-      background: linear-gradient(135deg, #0A0A0F 0%, #1A1A2E 100%);
+      background: #080B16;
+      background-image:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(114,92,255,.28), transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(39,215,208,.12), transparent 70%);
+      background-attachment: fixed;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
+      color: #F7F8FC;
     }
 
     .download-card {
-      background: rgba(26, 26, 46, 0.95);
+      background: #101728;
       backdrop-filter: blur(10px);
       border-radius: 32px;
       padding: 48px 32px;
       max-width: 700px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(231, 76, 60, 0.2);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, .45);
+      border: 1px solid rgba(114, 92, 255, .25);
       animation: fadeIn 0.6s ease-out;
     }
 
@@ -45,7 +53,7 @@
       margin: 0 auto 24px;
       border-radius: 30px;
       overflow: hidden;
-      box-shadow: 0 10px 30px -5px rgba(231, 76, 60, 0.3);
+      box-shadow: 0 10px 30px -5px rgba(114, 92, 255, .4);
     }
 
     .logo img {
@@ -55,30 +63,36 @@
     }
 
     h1 {
-      color: #FFFFFF;
+      color: #F7F8FC;
       font-size: 32px;
-      font-weight: 700;
+      font-weight: 900;
       margin-bottom: 8px;
+      letter-spacing: -.01em;
     }
 
     .badge {
       display: inline-block;
-      background: rgba(231, 76, 60, 0.2);
-      color: #E74C3C;
+      background: rgba(114, 92, 255, .16);
+      color: #A78BFA;
       padding: 6px 16px;
       border-radius: 100px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 24px;
-      border: 1px solid rgba(231, 76, 60, 0.3);
+      border: 1px solid rgba(114, 92, 255, .35);
     }
 
     .description {
-      color: #A0A0B0;
+      color: #B8C1D6;
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.7;
       margin-bottom: 32px;
       padding: 0 16px;
+    }
+
+    .description.accent-text {
+      font-size: 14px;
+      color: #27D7D0;
     }
 
     .features {
@@ -89,17 +103,17 @@
     }
 
     .feature-item {
-      background: rgba(42, 42, 62, 0.5);
+      background: #151E32;
       border-radius: 16px;
       padding: 16px 8px;
       text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: transform 0.3s;
+      border: 1px solid rgba(157, 167, 188, .14);
+      transition: transform 0.3s, border-color 0.3s;
     }
 
     .feature-item:hover {
       transform: translateY(-2px);
-      background: rgba(42, 42, 62, 0.8);
+      border-color: #725CFF;
     }
 
     .feature-icon {
@@ -109,25 +123,26 @@
     }
 
     .feature-text {
-      color: #FFFFFF;
+      color: #F7F8FC;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .power-features-section {
-      background: linear-gradient(135deg, rgba(231, 76, 60, 0.1) 0%, rgba(192, 57, 43, 0.1) 100%);
+      background: linear-gradient(135deg, rgba(114, 92, 255, .12) 0%, rgba(39, 215, 208, .06) 100%);
       border-radius: 24px;
       padding: 32px 24px;
       margin: 32px 0;
-      border: 1px solid rgba(231, 76, 60, 0.3);
+      border: 1px solid rgba(114, 92, 255, .28);
     }
 
     .power-features-title {
-      color: #E74C3C;
+      color: #A78BFA;
       font-size: 24px;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 24px;
       text-align: center;
+      letter-spacing: -.01em;
     }
 
     .power-features-grid {
@@ -137,17 +152,18 @@
     }
 
     .power-feature-card {
-      background: rgba(26, 26, 46, 0.8);
+      background: #101728;
       border-radius: 16px;
       padding: 20px 12px;
       text-align: center;
-      border: 1px solid rgba(231, 76, 60, 0.2);
-      transition: transform 0.3s, border-color 0.3s;
+      border: 1px solid rgba(114, 92, 255, .2);
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
     }
 
     .power-feature-card:hover {
       transform: translateY(-4px);
-      border-color: #E74C3C;
+      border-color: #725CFF;
+      box-shadow: 0 14px 40px rgba(114, 92, 255, .25);
     }
 
     .power-feature-card-icon {
@@ -157,27 +173,28 @@
     }
 
     .power-feature-card h3 {
-      color: #FFFFFF;
+      color: #F7F8FC;
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 800;
       margin-bottom: 8px;
     }
 
     .power-feature-card p {
-      color: #A0A0B0;
+      color: #B8C1D6;
       font-size: 12px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .version-badge {
       display: inline-block;
-      background: #E74C3C;
+      background: linear-gradient(135deg, #725CFF 0%, #4A38D8 100%);
       color: #FFFFFF;
-      padding: 4px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 12px;
+      letter-spacing: .02em;
     }
 
     /* ✅ عدّاد التنزيلات */
@@ -188,8 +205,8 @@
       gap: 10px;
       margin: 0 auto 16px;
       padding: 12px 24px;
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.3);
+      background: rgba(69, 211, 156, 0.08);
+      border: 1px solid rgba(69, 211, 156, 0.3);
       border-radius: 100px;
       animation: fadeIn 0.8s ease-out;
     }
@@ -199,7 +216,7 @@
     }
 
     .downloads-counter .counter-number {
-      color: #10B981;
+      color: #45D39C;
       font-size: 20px;
       font-weight: 800;
       letter-spacing: 0.5px;
@@ -208,25 +225,25 @@
     }
 
     .downloads-counter .counter-label {
-      color: #A0A0B0;
+      color: #B8C1D6;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .downloads-counter .counter-loading {
-      color: #6B7280;
+      color: #7A86A0;
       font-size: 18px;
       letter-spacing: 2px;
     }
 
     .download-btn {
-      background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%);
+      background: linear-gradient(135deg, #725CFF 0%, #4A38D8 100%);
       color: white;
       border: none;
       padding: 20px 32px;
       border-radius: 20px;
       font-size: 20px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       width: 100%;
       display: flex;
@@ -234,14 +251,15 @@
       justify-content: center;
       gap: 12px;
       transition: all 0.3s;
-      box-shadow: 0 10px 30px -5px rgba(231, 76, 60, 0.5);
+      box-shadow: 0 10px 30px -5px rgba(114, 92, 255, .5);
       text-decoration: none;
+      font-family: 'Tajawal', sans-serif;
     }
 
     .download-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 20px 40px -5px rgba(231, 76, 60, 0.7);
-      background: linear-gradient(135deg, #F05A4A 0%, #D44637 100%);
+      box-shadow: 0 20px 40px -5px rgba(114, 92, 255, .7);
+      background: linear-gradient(135deg, #8B78FF 0%, #5B48E8 100%);
     }
 
     .download-btn:active {
@@ -250,7 +268,7 @@
 
     .version-info {
       margin-top: 24px;
-      color: #6B7280;
+      color: #7A86A0;
       font-size: 14px;
     }
 
@@ -260,8 +278,9 @@
       justify-content: center;
       gap: 8px;
       margin-top: 20px;
-      color: #10B981;
+      color: #45D39C;
       font-size: 14px;
+      font-weight: 600;
     }
 
     .footer-links {
@@ -269,17 +288,19 @@
       display: flex;
       gap: 24px;
       justify-content: center;
+      flex-wrap: wrap;
     }
 
     .footer-links a {
-      color: #6B7280;
+      color: #7A86A0;
       text-decoration: none;
       font-size: 14px;
+      font-weight: 600;
       transition: color 0.3s;
     }
 
     .footer-links a:hover {
-      color: #E74C3C;
+      color: #A78BFA;
     }
 
     @media (max-width: 400px) {
@@ -307,7 +328,7 @@
       آمنة، سريعة، وسهلة الاستخدام.
     </p>
 
-    <p class="description" style="font-size:14px; color:#E74C3C;">
+    <p class="description accent-text">
       ✅ يدعم التحديث الفوري (OTA) — يتم التحديث تلقائيًا من داخل التطبيق.
     </p>
 
