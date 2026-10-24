@@ -385,7 +385,8 @@
     </div>
 
     <!-- ✅ زر التحميل — يقرأ تلقائياً من GitHub Releases -->
-    <a href="https://github.com/MonyCoin/meco_wallet/releases/latest/download/MECO-wallet.apk"
+    <!-- الـ href هنا كاحتياط فقط، سيتم استبداله بالرابط المباشر لملف الـ APK عبر JavaScript -->
+    <a href="https://github.com/MonyCoin/meco_wallet/releases/latest"
        class="download-btn" 
        download="MECO-Wallet.apk"
        id="downloadBtn">
@@ -419,6 +420,7 @@
       const numberEl       = document.getElementById('downloadsNumber');
       const versionBadgeEl = document.getElementById('versionBadge');
       const lastUpdateEl   = document.getElementById('lastUpdateInfo');
+      const downloadBtnEl  = document.getElementById('downloadBtn');
 
       // ─── قراءة من الذاكرة المؤقتة ───
       function getCachedData() {
@@ -474,6 +476,14 @@
         if (data.publishedAt) {
           lastUpdateEl.textContent = 'آخر تحديث: ' + formatArabicDate(data.publishedAt);
         }
+
+        // 4. رابط التحميل المباشر
+        if (data.downloadUrl && downloadBtnEl) {
+          downloadBtnEl.href = data.downloadUrl;
+          // تحديث اسم الملف في خاصية التحميل ليكون مطابقاً لاسم الملف الفعلي
+          const filename = data.downloadUrl.split('/').pop();
+          if (filename) downloadBtnEl.setAttribute('download', filename);
+        }
       }
 
       // ─── جلب البيانات من GitHub API ───
@@ -514,10 +524,18 @@
             });
           }
 
+          // ✅ استخراج رابط ملف الـ APK من بيانات آخر إصدار تلقائياً
+          let downloadUrl = null;
+          if (latest.assets && Array.isArray(latest.assets)) {
+            const apkAsset = latest.assets.find(a => a.name && a.name.toLowerCase().endsWith('.apk'));
+            if (apkAsset) downloadUrl = apkAsset.browser_download_url;
+          }
+
           const payload = {
             version:        latest.tag_name || null,
             publishedAt:    latest.published_at || null,
             totalDownloads: totalDownloads,
+            downloadUrl:    downloadUrl,
           };
 
           setCachedData(payload);
