@@ -275,6 +275,75 @@
       font-size: 14px;
     }
 
+    .checksum-box {
+      display: none;
+      margin-top: 20px;
+      padding: 16px;
+      text-align: start;
+      background: #151E32;
+      border: 1px solid rgba(157, 167, 188, .14);
+      border-radius: 16px;
+    }
+
+    .checksum-box h3 {
+      color: #F7F8FC;
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .checksum-hash {
+      display: block;
+      direction: ltr;
+      text-align: left;
+      word-break: break-all;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: #27D7D0;
+      background: #101728;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+
+    .checksum-copy {
+      background: rgba(114, 92, 255, .16);
+      color: #A78BFA;
+      border: 1px solid rgba(114, 92, 255, .35);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    .checksum-box details {
+      margin-top: 12px;
+      color: #B8C1D6;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .checksum-box summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: #F7F8FC;
+    }
+
+    .checksum-box code {
+      direction: ltr;
+      display: block;
+      text-align: left;
+      background: #101728;
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin: 6px 0;
+      font-size: 12px;
+      color: #27D7D0;
+      word-break: break-all;
+    }
+
     .security-badge {
       display: flex;
       align-items: center;
@@ -405,6 +474,21 @@
        id="downloadBtn">
       ⬇️ تحميل التطبيق (APK)
     </a>
+
+    <!-- ✅ بصمة الملف SHA-256 (تُقرأ من version.json) -->
+    <div class="checksum-box" id="checksumBox">
+      <h3>🔎 تحقّق من سلامة الملف (SHA-256)</h3>
+      <span class="checksum-hash" id="checksumHash">—</span>
+      <button class="checksum-copy" type="button" id="checksumCopy">نسخ البصمة</button>
+      <details>
+        <summary>كيف أتحقق؟</summary>
+        <p>بعد تنزيل الملف، احسب بصمته وقارنها بالقيمة أعلاه. يجب أن تتطابق تماماً، وإلا فلا تثبّت الملف.</p>
+        <p>على أندرويد (Termux):</p>
+        <code id="checksumCmdAndroid">sha256sum MECO-Wallet.apk</code>
+        <p>على ويندوز (PowerShell):</p>
+        <code id="checksumCmdWin">Get-FileHash .\MECO-Wallet.apk -Algorithm SHA256</code>
+      </details>
+    </div>
 
     <div class="security-badge">
       <span>🔐 المفاتيح الخاصة تبقى على جهازك ولا تغادره أبدًا</span>
@@ -563,11 +647,37 @@
         }
       }
 
+      // ─── بصمة الملف SHA-256 من version.json ───
+      function showChecksum() {
+        const box = document.getElementById('checksumBox');
+        if (!box) return;
+        fetch('version.json?t=' + Date.now(), { cache: 'no-store' })
+          .then(r => (r.ok ? r.json() : Promise.reject()))
+          .then(d => {
+            if (!d || !/^[0-9a-f]{64}$/i.test(d.sha256 || '')) return;
+            document.getElementById('checksumHash').textContent = d.sha256.toLowerCase();
+            const name = (d.apkName && /^[\w.\-]+$/.test(d.apkName)) ? d.apkName : 'MECO-Wallet.apk';
+            document.getElementById('checksumCmdAndroid').textContent = 'sha256sum ' + name;
+            document.getElementById('checksumCmdWin').textContent = 'Get-FileHash .\\' + name + ' -Algorithm SHA256';
+            box.style.display = 'block';
+            const btn = document.getElementById('checksumCopy');
+            btn.addEventListener('click', () => {
+              const txt = d.sha256.toLowerCase();
+              const done = () => { btn.textContent = 'تم النسخ ✓'; setTimeout(() => { btn.textContent = 'نسخ البصمة'; }, 1800); };
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(txt).then(done).catch(() => {});
+              }
+            });
+          })
+          .catch(() => {});
+      }
+
       // ─── تشغيل عند تحميل الصفحة ───
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fetchReleaseData);
+        document.addEventListener('DOMContentLoaded', () => { fetchReleaseData(); showChecksum(); });
       } else {
         fetchReleaseData();
+        showChecksum();
       }
     })();
   </script>
