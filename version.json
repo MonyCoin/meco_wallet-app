@@ -1,6 +1,8 @@
 {
   "latestVersion": "1.25.0",
-  "buildNumber": "24",
+  "buildNumber": "25",
   "releaseNotes": "تحديث تلقائي للإصدار v1.25.0",
-  "downloadUrl": "https://github.com/MonyCoin/meco_wallet/releases/download/v1.25.0/MECO.Wallet.apk"
+  "downloadUrl": "https://github.com/MonyCoin/meco_wallet/releases/download/v1.25.0/MECO.Wallet.apk",
+  "apkName": "MECO.Wallet.apk",
+  "sha256": "731ca9f51cb27559a4693a518f0aebf0c1b9c6478a7254a240980a190834ba8f"
 }
